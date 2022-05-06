@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    //префабы для отрисовки линий
+    //РїСЂРµС„Р°Р±С‹ РґР»СЏ РѕС‚СЂРёСЃРѕРІРєРё Р»РёРЅРёР№
     public LineRenderer blackLine;
     public LineRenderer redLine;
     public LineRenderer invisibleLine;
@@ -17,14 +17,14 @@ public class BallController : MonoBehaviour
     private SpriteRenderer ballRenderer;
     private Rigidbody2D newRigidbody;
 
-    //координаты ограничения передвижения шарика
+    //РєРѕРѕСЂРґРёРЅР°С‚С‹ РѕРіСЂР°РЅРёС‡РµРЅРёСЏ РїРµСЂРµРґРІРёР¶РµРЅРёСЏ С€Р°СЂРёРєР°
     private float stopLine = -3.1f;
     private float stopLine1 = -3.0f;
     private float stopLeftX = -2.2f;
     private float stopRightX = 2.2f;
     private float stopDownY = -4.7f;
 
-    //коэффициент величины угла при натяжении
+    //РєРѕСЌС„С„РёС†РёРµРЅС‚ РІРµР»РёС‡РёРЅС‹ СѓРіР»Р° РїСЂРё РЅР°С‚СЏР¶РµРЅРёРё
     private float spreadAngle = 2.5f;
 
     private float seconds = 0.3f;
@@ -52,7 +52,7 @@ public class BallController : MonoBehaviour
     private Ray2D ray;
     private Ray2D ray2;
 
-    //расчет падения и отклонения лучей
+    //СЂР°СЃС‡РµС‚ РїР°РґРµРЅРёСЏ Рё РѕС‚РєР»РѕРЅРµРЅРёСЏ Р»СѓС‡РµР№
     private void LineDirection()
     {
         Vector2 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -68,7 +68,7 @@ public class BallController : MonoBehaviour
             blackPoints[1] = hit.point;
             Debug.DrawRay(ray.origin, ray.direction * 20.0f, Color.green);
 
-            //вспомогательная точка виртуального треугольника для построения корректного угла луча
+            //РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅР°СЏ С‚РѕС‡РєР° РІРёСЂС‚СѓР°Р»СЊРЅРѕРіРѕ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РґР»СЏ РїРѕСЃС‚СЂРѕРµРЅРёСЏ РєРѕСЂСЂРµРєС‚РЅРѕРіРѕ СѓРіР»Р° Р»СѓС‡Р°
             float virtualPointY = hit.point.y + Mathf.Abs(hit.point.y - transform.position.y);
             Vector2 virtualPoint = new Vector2(transform.position.x, virtualPointY);
             Vector2 secondTarget = virtualPoint - hit.point;
@@ -76,7 +76,7 @@ public class BallController : MonoBehaviour
             RaycastHit2D hit2 = Physics2D.Raycast(ray2.origin, ray2.direction, Mathf.Infinity, layerBorder);
             Vector3 startDistance = startPoint - transform.position;
 
-            //если шарик передвинут на расстояние, при котором появляется разброс луча
+            //РµСЃР»Рё С€Р°СЂРёРє РїРµСЂРµРґРІРёРЅСѓС‚ РЅР° СЂР°СЃСЃС‚РѕСЏРЅРёРµ, РїСЂРё РєРѕС‚РѕСЂРѕРј РїРѕСЏРІР»СЏРµС‚СЃСЏ СЂР°Р·Р±СЂРѕСЃ Р»СѓС‡Р°
             if (startDistance.magnitude > 0.8f)
             {
                 float angleFactor = startDistance.magnitude * spreadAngle;
@@ -240,7 +240,7 @@ public class BallController : MonoBehaviour
         HitCheck();
     }
 
-    //отрисовка черных и красных линий
+    //РѕС‚СЂРёСЃРѕРІРєР° С‡РµСЂРЅС‹С… Рё РєСЂР°СЃРЅС‹С… Р»РёРЅРёР№
     private void LineRendering()
     {
         Vector2 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -306,7 +306,7 @@ public class BallController : MonoBehaviour
 
         if (startDistance.magnitude > 0.8f)
         {
-            //если линий отскока от стенки нет
+            //РµСЃР»Рё Р»РёРЅРёР№ РѕС‚СЃРєРѕРєР° РѕС‚ СЃС‚РµРЅРєРё РЅРµС‚
             if (redRenderers[2].GetPosition(0) == redRenderers[2].GetPosition(1))
             {
                 if (redRenderers[3].GetPosition(0) == redRenderers[3].GetPosition(1))
@@ -336,7 +336,7 @@ public class BallController : MonoBehaviour
         }    
     }
 
-    //считаем место удара между красных линий
+    //СЃС‡РёС‚Р°РµРј РјРµСЃС‚Рѕ СѓРґР°СЂР° РјРµР¶РґСѓ РєСЂР°СЃРЅС‹С… Р»РёРЅРёР№
     private Vector2 HitPlace(float magnitude, bool secondHit)
     {
         int layerBorder = 1 << 6;
@@ -362,7 +362,7 @@ public class BallController : MonoBehaviour
         return finalHit;
     }
 
-    //невидимая линия для отрисовки сгиба красного луча
+    //РЅРµРІРёРґРёРјР°СЏ Р»РёРЅРёСЏ РґР»СЏ РѕС‚СЂРёСЃРѕРІРєРё СЃРіРёР±Р° РєСЂР°СЃРЅРѕРіРѕ Р»СѓС‡Р°
     private void SetEdgeCollider(LineRenderer lineRenderer)
     {
         List<Vector2> edges = new List<Vector2>();
@@ -437,7 +437,7 @@ public class BallController : MonoBehaviour
                 ChangeCoord(startPoint, redHit[0], variableSpeed);
                 stateHit = redHit[0];
 
-                //сообщаем о том "сильный" ли это удар
+                //СЃРѕРѕР±С‰Р°РµРј Рѕ С‚РѕРј "СЃРёР»СЊРЅС‹Р№" Р»Рё СЌС‚Рѕ СѓРґР°СЂ
                 forseFly = true;
             }
 
@@ -445,7 +445,7 @@ public class BallController : MonoBehaviour
         } 
     }
 
-    //для расчета перемещения от одной точки к другой со временем
+    //РґР»СЏ СЂР°СЃС‡РµС‚Р° РїРµСЂРµРјРµС‰РµРЅРёСЏ РѕС‚ РѕРґРЅРѕР№ С‚РѕС‡РєРё Рє РґСЂСѓРіРѕР№ СЃРѕ РІСЂРµРјРµРЅРµРј
     private void ChangeCoord(Vector3 first, Vector3 second, float newSpeed)
     {
         transformPositionOld = first;
@@ -455,7 +455,7 @@ public class BallController : MonoBehaviour
         journeyLength = Vector3.Distance(transformPositionOld, transformPositionNew);
     }
 
-    //если шарик прилепляется (черная линия)
+    //РµСЃР»Рё С€Р°СЂРёРє РїСЂРёР»РµРїР»СЏРµС‚СЃСЏ (С‡РµСЂРЅР°СЏ Р»РёРЅРёСЏ)
     private void Binding(GameObject bubble)
     {
         if (isSpringJoint == false)
@@ -475,14 +475,14 @@ public class BallController : MonoBehaviour
         }
     }
 
-    //добавим корутину для того, чтобы дать время сработать отпружиниванию
+    //РґРѕР±Р°РІРёРј РєРѕСЂСѓС‚РёРЅСѓ РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ РґР°С‚СЊ РІСЂРµРјСЏ СЃСЂР°Р±РѕС‚Р°С‚СЊ РѕС‚РїСЂСѓР¶РёРЅРёРІР°РЅРёСЋ
     IEnumerator WaitTime(Vector2 point, float offsetY)
     {
         yield return new WaitForSeconds(seconds);
         CheckNeighbours(point, offsetY);
     }
 
-    //мяч превращается в такой же шарик как остальные и запускает проверку будут ли лопаться остальные шарики
+    //РјСЏС‡ РїСЂРµРІСЂР°С‰Р°РµС‚СЃСЏ РІ С‚Р°РєРѕР№ Р¶Рµ С€Р°СЂРёРє РєР°Рє РѕСЃС‚Р°Р»СЊРЅС‹Рµ Рё Р·Р°РїСѓСЃРєР°РµС‚ РїСЂРѕРІРµСЂРєСѓ Р±СѓРґСѓС‚ Р»Рё Р»РѕРїР°С‚СЊСЃСЏ РѕСЃС‚Р°Р»СЊРЅС‹Рµ С€Р°СЂРёРєРё
     private void CheckNeighbours(Vector2 point, float offsetY)
     {
         Vector2 newPoint = new Vector2(point.x, point.y - offsetY);
@@ -519,7 +519,7 @@ public class BallController : MonoBehaviour
         bubble.CheckForBurst();
     }
 
-    //если шарик пробивает другой (красная линия)
+    //РµСЃР»Рё С€Р°СЂРёРє РїСЂРѕР±РёРІР°РµС‚ РґСЂСѓРіРѕР№ (РєСЂР°СЃРЅР°СЏ Р»РёРЅРёСЏ)
     private void Replace(GameObject bubble)
     {
         if (isSpringJoint == false)
@@ -572,7 +572,7 @@ public class BallController : MonoBehaviour
     {
         SetEdgeCollider(myLine);
 
-        //fly1 движение без отскока, fly2 движение после отскока, если он есть
+        //fly1 РґРІРёР¶РµРЅРёРµ Р±РµР· РѕС‚СЃРєРѕРєР°, fly2 РґРІРёР¶РµРЅРёРµ РїРѕСЃР»Рµ РѕС‚СЃРєРѕРєР°, РµСЃР»Рё РѕРЅ РµСЃС‚СЊ
         if (fly1 == true)
         {
             float distCovered = (Time.time - startTime) * speed;
@@ -621,7 +621,7 @@ public class BallController : MonoBehaviour
         }
     }
 
-    //проверяем столкновения с другими шариками, с землёй, создание следующего шарика
+    //РїСЂРѕРІРµСЂСЏРµРј СЃС‚РѕР»РєРЅРѕРІРµРЅРёСЏ СЃ РґСЂСѓРіРёРјРё С€Р°СЂРёРєР°РјРё, СЃ Р·РµРјР»С‘Р№, СЃРѕР·РґР°РЅРёРµ СЃР»РµРґСѓСЋС‰РµРіРѕ С€Р°СЂРёРєР°
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Bubble")

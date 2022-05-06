@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class Field : MonoBehaviour
 {
-    //префабы обектов и счет
+    //РїСЂРµС„Р°Р±С‹ РѕР±РµРєС‚РѕРІ Рё СЃС‡РµС‚
     public GameObject templateBubble;
     public GameObject scoreUI;
     public GameObject resultUI;
@@ -18,19 +18,19 @@ public class Field : MonoBehaviour
     private int score;
     private int winPoints;
 
-    //словари для нахождения одинаковых и повисших в воздухе шариков
+    //СЃР»РѕРІР°СЂРё РґР»СЏ РЅР°С…РѕР¶РґРµРЅРёСЏ РѕРґРёРЅР°РєРѕРІС‹С… Рё РїРѕРІРёСЃС€РёС… РІ РІРѕР·РґСѓС…Рµ С€Р°СЂРёРєРѕРІ
     private Dictionary<string, Color> bubblesField = new Dictionary<string, Color>();
     private Dictionary<string, GameObject> gameObjectField = new Dictionary<string, GameObject>();   
     private Dictionary<string, Color> tempField = new Dictionary<string, Color>();
     private Dictionary<string, GameObject> tempGameObjectField = new Dictionary<string, GameObject>();
 
-    //вспомогательные списки
+    //РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ СЃРїРёСЃРєРё
     private List<string> strongRow = new List<string>();
     private List<GameObject> tempBubbles = new List<GameObject>();
     private List<GameObject> bubblesList = new List<GameObject>();
     private List<List<Color>> bubblesColor = new List<List<Color>>();
 
-    //стартовые координаты для построения поля, диаметр и дистанция между шариками
+    //СЃС‚Р°СЂС‚РѕРІС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ РґР»СЏ РїРѕСЃС‚СЂРѕРµРЅРёСЏ РїРѕР»СЏ, РґРёР°РјРµС‚СЂ Рё РґРёСЃС‚Р°РЅС†РёСЏ РјРµР¶РґСѓ С€Р°СЂРёРєР°РјРё
     private float borderLineX = -1.85f;
     private float borderLineY = 4.55f;
     private float bubbleDiameter = 0.4f;
@@ -47,7 +47,7 @@ public class Field : MonoBehaviour
         GenerateBubbles();
     }
 
-    //создаем поле шариков
+    //СЃРѕР·РґР°РµРј РїРѕР»Рµ С€Р°СЂРёРєРѕРІ
     private void GenerateBubbles()
     {
         float offsetX = (bubbleDiameter + distanceBetween) / 2;
@@ -62,7 +62,7 @@ public class Field : MonoBehaviour
 
         for (int i = 0; i < bubblesColor.Count; i++)
         {
-            //указываем есть ли смещение для ряда (10 или 11 шариков в ряду)
+            //СѓРєР°Р·С‹РІР°РµРј РµСЃС‚СЊ Р»Рё СЃРјРµС‰РµРЅРёРµ РґР»СЏ СЂСЏРґР° (10 РёР»Рё 11 С€Р°СЂРёРєРѕРІ РІ СЂСЏРґСѓ)
             if (bubblesColor[i].Count == 11)
             {
                 currentLineX = borderLineX - offsetX;
@@ -85,8 +85,8 @@ public class Field : MonoBehaviour
                     newBubble.GetComponent<Bubble>().SetOptions(bubblesColor[i][j], position);
                     newBubble.GetComponent<Bubble>().AllAnchors(position, offsetX, offsetY);
 
-                    //при генерации поля шарик будет содержать информацию о цвете соседних с ним шариков
-                    //проверка предыдущего шарика в одном ряду
+                    //РїСЂРё РіРµРЅРµСЂР°С†РёРё РїРѕР»СЏ С€Р°СЂРёРє Р±СѓРґРµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ С†РІРµС‚Рµ СЃРѕСЃРµРґРЅРёС… СЃ РЅРёРј С€Р°СЂРёРєРѕРІ
+                    //РїСЂРѕРІРµСЂРєР° РїСЂРµРґС‹РґСѓС‰РµРіРѕ С€Р°СЂРёРєР° РІ РѕРґРЅРѕРј СЂСЏРґСѓ
                     if (j > 0)
                     {
                         if (bubblesColor[i][j] == bubblesColor[i][j - 1])
@@ -94,7 +94,7 @@ public class Field : MonoBehaviour
                             newBubble.GetComponent<Bubble>().Neighbours(bubblesTemp[j - 1]);
                             bubblesTemp[j - 1].GetComponent<Bubble>().Neighbours(newBubble);
                         }
-                        //информация о соседнем шарике любого цвета
+                        //РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРѕСЃРµРґРЅРµРј С€Р°СЂРёРєРµ Р»СЋР±РѕРіРѕ С†РІРµС‚Р°
                         if (bubblesColor[i][j - 1] != Color.clear)
                         {
                             newBubble.GetComponent<Bubble>().BusyNeighbors(bubblesTemp[j - 1]);
@@ -102,7 +102,7 @@ public class Field : MonoBehaviour
                         }
                     }
 
-                    //проверка нижнего ряда
+                    //РїСЂРѕРІРµСЂРєР° РЅРёР¶РЅРµРіРѕ СЂСЏРґР°
                     if (i > 0)
                     {
                         if (bubblesColor[i].Count == 11)
@@ -114,7 +114,7 @@ public class Field : MonoBehaviour
                                     newBubble.GetComponent<Bubble>().Neighbours(previousBubblesTemp[j]);
                                     previousBubblesTemp[j].GetComponent<Bubble>().Neighbours(newBubble);
                                 }
-                                //информация о соседнем шарике любого цвета
+                                //РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРѕСЃРµРґРЅРµРј С€Р°СЂРёРєРµ Р»СЋР±РѕРіРѕ С†РІРµС‚Р°
                                 if (bubblesColor[i - 1][j] != Color.clear)
                                 {
                                     newBubble.GetComponent<Bubble>().BusyNeighbors(previousBubblesTemp[j]);
@@ -128,7 +128,7 @@ public class Field : MonoBehaviour
                                     newBubble.GetComponent<Bubble>().Neighbours(previousBubblesTemp[j - 1]);
                                     previousBubblesTemp[j - 1].GetComponent<Bubble>().Neighbours(newBubble);
                                 }
-                                //информация о соседнем шарике любого цвета
+                                //РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРѕСЃРµРґРЅРµРј С€Р°СЂРёРєРµ Р»СЋР±РѕРіРѕ С†РІРµС‚Р°
                                 if (bubblesColor[i - 1][j - 1] != Color.clear)
                                 {
                                     newBubble.GetComponent<Bubble>().BusyNeighbors(previousBubblesTemp[j - 1]);
@@ -148,7 +148,7 @@ public class Field : MonoBehaviour
                                 newBubble.GetComponent<Bubble>().Neighbours(previousBubblesTemp[j + 1]);
                                 previousBubblesTemp[j + 1].GetComponent<Bubble>().Neighbours(newBubble);
                             }
-                            //информация о соседнем шарике любого цвета
+                            //РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРѕСЃРµРґРЅРµРј С€Р°СЂРёРєРµ Р»СЋР±РѕРіРѕ С†РІРµС‚Р°
                             if (bubblesColor[i - 1][j] != Color.clear)
                             {
                                 newBubble.GetComponent<Bubble>().BusyNeighbors(previousBubblesTemp[j]);
@@ -169,7 +169,7 @@ public class Field : MonoBehaviour
                 bubblesTemp.Add(newBubble);
                 bubblesList.Add(newBubble);
 
-                //формируем ключ для словарей из координат X и Y с одним знаком после запятой
+                //С„РѕСЂРјРёСЂСѓРµРј РєР»СЋС‡ РґР»СЏ СЃР»РѕРІР°СЂРµР№ РёР· РєРѕРѕСЂРґРёРЅР°С‚ X Рё Y СЃ РѕРґРЅРёРј Р·РЅР°РєРѕРј РїРѕСЃР»Рµ Р·Р°РїСЏС‚РѕР№
                 int value = 1;
                 double positionX = Math.Round(currentLineX, value);
                 double positionY = Math.Round(currentLineY, value);
@@ -177,7 +177,7 @@ public class Field : MonoBehaviour
                 bubblesField.Add(positionKey, bubblesColor[i][j]);
                 gameObjectField.Add(positionKey, newBubble);
 
-                //список ключей верхнего ряда для поиска зависших в воздухе шариков и контроля счета
+                //СЃРїРёСЃРѕРє РєР»СЋС‡РµР№ РІРµСЂС…РЅРµРіРѕ СЂСЏРґР° РґР»СЏ РїРѕРёСЃРєР° Р·Р°РІРёСЃС€РёС… РІ РІРѕР·РґСѓС…Рµ С€Р°СЂРёРєРѕРІ Рё РєРѕРЅС‚СЂРѕР»СЏ СЃС‡РµС‚Р°
                 if (i == bubblesColor.Count - 1)
                 {
                     strongRow.Add(positionKey);
@@ -190,11 +190,11 @@ public class Field : MonoBehaviour
             currentLineY = currentLineY + offsetY;
         }
 
-        //количество шариков верхнего ряда которые должны остаться для победы
+        //РєРѕР»РёС‡РµСЃС‚РІРѕ С€Р°СЂРёРєРѕРІ РІРµСЂС…РЅРµРіРѕ СЂСЏРґР° РєРѕС‚РѕСЂС‹Рµ РґРѕР»Р¶РЅС‹ РѕСЃС‚Р°С‚СЊСЃСЏ РґР»СЏ РїРѕР±РµРґС‹
         winPoints = (int)Math.Round(strongRow.Count / 100f * 30f);
     }
 
-    //прибавление очков и контроль выигрыша
+    //РїСЂРёР±Р°РІР»РµРЅРёРµ РѕС‡РєРѕРІ Рё РєРѕРЅС‚СЂРѕР»СЊ РІС‹РёРіСЂС‹С€Р°
     public void PlusPoints()
     {
         if (winPoints < strongRow.Count)
@@ -212,19 +212,19 @@ public class Field : MonoBehaviour
         }
     }
 
-    //окно выигрыша
+    //РѕРєРЅРѕ РІС‹РёРіСЂС‹С€Р°
     private void WinResult()
     {
         GameObject winResult = Instantiate(resultUI);
         GameObject FoundCanvas = GameObject.Find("Canvas");
         winResult.transform.SetParent(FoundCanvas.transform, false);
-        winResult.GetComponentInChildren<TextMeshProUGUI>().text = "Выигрыш! <br>" + forScore + score;
+        winResult.GetComponentInChildren<TextMeshProUGUI>().text = "Р’С‹РёРіСЂС‹С€! <br>" + forScore + score;
         winResult.GetComponentInChildren<Button>().onClick.AddListener(ToMenu);
-        //запрещаем передвигать мяч после появления окна
+        //Р·Р°РїСЂРµС‰Р°РµРј РїРµСЂРµРґРІРёРіР°С‚СЊ РјСЏС‡ РїРѕСЃР»Рµ РїРѕСЏРІР»РµРЅРёСЏ РѕРєРЅР°
         GameObject spawner = GameObject.Find("Spawner");
         spawner.GetComponent<BallSpawner>().newBall.GetComponent<CircleCollider2D>().enabled = false;
 
-        //оставшиеся шарики падают
+        //РѕСЃС‚Р°РІС€РёРµСЃСЏ С€Р°СЂРёРєРё РїР°РґР°СЋС‚
         for (int i = 0; i < bubblesList.Count; i++)
         {
             if (bubblesList[i].GetComponent<SpringJoint2D>())
@@ -234,15 +234,15 @@ public class Field : MonoBehaviour
         }
     }
 
-    //окно проигрыша
+    //РѕРєРЅРѕ РїСЂРѕРёРіСЂС‹С€Р°
     public void LossResult()
     {
         GameObject winResult = Instantiate(resultUI);
         GameObject FoundCanvas = GameObject.Find("Canvas");
         winResult.transform.SetParent(FoundCanvas.transform, false);
-        winResult.GetComponentInChildren<TextMeshProUGUI>().text = "Проигрыш! <br>Закончились мячи";
+        winResult.GetComponentInChildren<TextMeshProUGUI>().text = "РџСЂРѕРёРіСЂС‹С€! <br>Р—Р°РєРѕРЅС‡РёР»РёСЃСЊ РјСЏС‡Рё";
         winResult.GetComponentInChildren<Button>().onClick.AddListener(ToMenu);
-        //запрещаем передвигать мяч после появления окна
+        //Р·Р°РїСЂРµС‰Р°РµРј РїРµСЂРµРґРІРёРіР°С‚СЊ РјСЏС‡ РїРѕСЃР»Рµ РїРѕСЏРІР»РµРЅРёСЏ РѕРєРЅР°
         GameObject spawner = GameObject.Find("Spawner");
         spawner.GetComponent<BallSpawner>().newBall.GetComponent<CircleCollider2D>().enabled = false;  
     }
@@ -252,7 +252,7 @@ public class Field : MonoBehaviour
         GetComponent<UIManager>().BackToMenu();
     }
 
-    //удаляем замещенный шарик из списков
+    //СѓРґР°Р»СЏРµРј Р·Р°РјРµС‰РµРЅРЅС‹Р№ С€Р°СЂРёРє РёР· СЃРїРёСЃРєРѕРІ
     public void Remove(string positionKey)
     {
         GameObject deletedObject = gameObjectField[positionKey];
@@ -265,7 +265,7 @@ public class Field : MonoBehaviour
         bubblesList.Remove(deletedObject);
     }
 
-    //добавляем прилипший или заместивший другой шарик мяч к спискам остальных шариков
+    //РґРѕР±Р°РІР»СЏРµРј РїСЂРёР»РёРїС€РёР№ РёР»Рё Р·Р°РјРµСЃС‚РёРІС€РёР№ РґСЂСѓРіРѕР№ С€Р°СЂРёРє РјСЏС‡ Рє СЃРїРёСЃРєР°Рј РѕСЃС‚Р°Р»СЊРЅС‹С… С€Р°СЂРёРєРѕРІ
     public void Add(string positionKey, Color bubbleColor, GameObject gameObject)
     {
         if (bubblesField.ContainsKey(positionKey))
@@ -288,7 +288,7 @@ public class Field : MonoBehaviour
         }  
     }
 
-    //формируем список для текущей проверки одинаковых шариков
+    //С„РѕСЂРјРёСЂСѓРµРј СЃРїРёСЃРѕРє РґР»СЏ С‚РµРєСѓС‰РµР№ РїСЂРѕРІРµСЂРєРё РѕРґРёРЅР°РєРѕРІС‹С… С€Р°СЂРёРєРѕРІ
     public void BurstList(string positionKey, Color bubbleColor, GameObject gameObject)
     {
         if (!tempField.ContainsKey(positionKey))
@@ -298,7 +298,7 @@ public class Field : MonoBehaviour
         }
     }
 
-    //после того как все шарики от исходного пересчитали одинаковых соседей
+    //РїРѕСЃР»Рµ С‚РѕРіРѕ РєР°Рє РІСЃРµ С€Р°СЂРёРєРё РѕС‚ РёСЃС…РѕРґРЅРѕРіРѕ РїРµСЂРµСЃС‡РёС‚Р°Р»Рё РѕРґРёРЅР°РєРѕРІС‹С… СЃРѕСЃРµРґРµР№
     public void BurstWhenAllCollect()
     {
         if (check1 == true)
@@ -308,7 +308,7 @@ public class Field : MonoBehaviour
         }
     }
 
-    //удаляем шарики из списков и лопаем их
+    //СѓРґР°Р»СЏРµРј С€Р°СЂРёРєРё РёР· СЃРїРёСЃРєРѕРІ Рё Р»РѕРїР°РµРј РёС…
     public IEnumerator WaitTime()
     {
         yield return new WaitForSeconds(seconds);
@@ -350,7 +350,7 @@ public class Field : MonoBehaviour
         check1 = true;
     }
 
-    //проверяем есть ли зависшие в воздухе шарики
+    //РїСЂРѕРІРµСЂСЏРµРј РµСЃС‚СЊ Р»Рё Р·Р°РІРёСЃС€РёРµ РІ РІРѕР·РґСѓС…Рµ С€Р°СЂРёРєРё
     IEnumerator CheckFallDown()
     {
         yield return new WaitForSeconds(seconds);
@@ -374,7 +374,7 @@ public class Field : MonoBehaviour
         }
     }
 
-    //шарик может вызвать эту функцию и проверить есть ли он в словаре
+    //С€Р°СЂРёРє РјРѕР¶РµС‚ РІС‹Р·РІР°С‚СЊ СЌС‚Сѓ С„СѓРЅРєС†РёСЋ Рё РїСЂРѕРІРµСЂРёС‚СЊ РµСЃС‚СЊ Р»Рё РѕРЅ РІ СЃР»РѕРІР°СЂРµ
     public bool CheckFallDown2(string key)
     {
         if (tempGameObjectField.ContainsKey(key))
@@ -388,7 +388,7 @@ public class Field : MonoBehaviour
         }
     }
 
-    //найденные зависшие в воздухе шарики удаляем из списков и отправляем в падение
+    //РЅР°Р№РґРµРЅРЅС‹Рµ Р·Р°РІРёСЃС€РёРµ РІ РІРѕР·РґСѓС…Рµ С€Р°СЂРёРєРё СѓРґР°Р»СЏРµРј РёР· СЃРїРёСЃРєРѕРІ Рё РѕС‚РїСЂР°РІР»СЏРµРј РІ РїР°РґРµРЅРёРµ
     IEnumerator WaitTime2()
     {
         yield return CheckFallDown();
@@ -454,7 +454,7 @@ public class Field : MonoBehaviour
         return bubbleColor;
     }
 
-    //читаем данные из файла
+    //С‡РёС‚Р°РµРј РґР°РЅРЅС‹Рµ РёР· С„Р°Р№Р»Р°
     private void Read()
     {
         string path = Application.streamingAssetsPath + "/field.csv";

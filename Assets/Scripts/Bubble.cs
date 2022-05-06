@@ -7,11 +7,11 @@ public class Bubble : MonoBehaviour
 {
     public GameObject explosionEffect;
 
-    //список содержит инфо о занятых соседних позициях
+    //СЃРїРёСЃРѕРє СЃРѕРґРµСЂР¶РёС‚ РёРЅС„Рѕ Рѕ Р·Р°РЅСЏС‚С‹С… СЃРѕСЃРµРґРЅРёС… РїРѕР·РёС†РёСЏС…
     public List<GameObject> busyNeighbors = new List<GameObject>();
-    //список каждого шарика содержит информацию о соседях того же цвета
+    //СЃРїРёСЃРѕРє РєР°Р¶РґРѕРіРѕ С€Р°СЂРёРєР° СЃРѕРґРµСЂР¶РёС‚ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЃРѕСЃРµРґСЏС… С‚РѕРіРѕ Р¶Рµ С†РІРµС‚Р°
     private List<GameObject> sameNeighbors = new List<GameObject>();
-    //список содержит инфо о всех/свободных соседних позициях
+    //СЃРїРёСЃРѕРє СЃРѕРґРµСЂР¶РёС‚ РёРЅС„Рѕ Рѕ РІСЃРµС…/СЃРІРѕР±РѕРґРЅС‹С… СЃРѕСЃРµРґРЅРёС… РїРѕР·РёС†РёСЏС…
     private List<Vector2> allAnchors = new List<Vector2>();
     public List<Vector2> freeAnchors;
 
@@ -25,7 +25,7 @@ public class Bubble : MonoBehaviour
     private float getOffsetX;
     private float getOffsetY;
 
-    //параметры при появлении шарика
+    //РїР°СЂР°РјРµС‚СЂС‹ РїСЂРё РїРѕСЏРІР»РµРЅРёРё С€Р°СЂРёРєР°
     public void SetOptions(Color color, Vector2 position)
     {
         bubbleRenderer.color = color;
@@ -44,14 +44,14 @@ public class Bubble : MonoBehaviour
         manager = GameObject.Find("Manager");
         bubbleColor = bubbleRenderer.color;
 
-        //индивидуальный ключ шарика в зависимости от координат
+        //РёРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹Р№ РєР»СЋС‡ С€Р°СЂРёРєР° РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РєРѕРѕСЂРґРёРЅР°С‚
         int value = 1;
         double positionX = Math.Round(position.x, value);
         double positionY = Math.Round(position.y, value);
         positionKey = positionX.ToString() + positionY.ToString();
     }
 
-    //информация о координатах соседних точек
+    //РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РєРѕРѕСЂРґРёРЅР°С‚Р°С… СЃРѕСЃРµРґРЅРёС… С‚РѕС‡РµРє
     public void AllAnchors(Vector2 position, float offsetX, float offsetY)
     {
         allAnchors.Add(new Vector2(position.x - offsetX * 2f, position.y));
@@ -67,7 +67,7 @@ public class Bubble : MonoBehaviour
         getOffsetY = offsetY;
     }
 
-    //передать в ударивший шарик информацию о смещениях
+    //РїРµСЂРµРґР°С‚СЊ РІ СѓРґР°СЂРёРІС€РёР№ С€Р°СЂРёРє РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СЃРјРµС‰РµРЅРёСЏС…
     public float[] Offsets()
     {
         float[] offsets = { getOffsetX, getOffsetY };
@@ -85,13 +85,13 @@ public class Bubble : MonoBehaviour
         return positionKey;
     }
 
-    //добавляем "соседа" того же цвета
+    //РґРѕР±Р°РІР»СЏРµРј "СЃРѕСЃРµРґР°" С‚РѕРіРѕ Р¶Рµ С†РІРµС‚Р°
     public void Neighbours(GameObject neighbour)
     {
         sameNeighbors.Add(neighbour);
     }
 
-    //добавляем информацию о всех соседях
+    //РґРѕР±Р°РІР»СЏРµРј РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РІСЃРµС… СЃРѕСЃРµРґСЏС…
     public void BusyNeighbors(GameObject neighbour)
     {
         busyNeighbors.Add(neighbour);
@@ -112,7 +112,7 @@ public class Bubble : MonoBehaviour
         }
     }
 
-    //возвращаем доступную точку привязки, ближайшую к месту удара
+    //РІРѕР·РІСЂР°С‰Р°РµРј РґРѕСЃС‚СѓРїРЅСѓСЋ С‚РѕС‡РєСѓ РїСЂРёРІСЏР·РєРё, Р±Р»РёР¶Р°Р№С€СѓСЋ Рє РјРµСЃС‚Сѓ СѓРґР°СЂР°
     public Vector2 NearestPoint(Vector2 hitPoint)
     {
         Vector2 finalPoint = new Vector2();
@@ -130,19 +130,19 @@ public class Bubble : MonoBehaviour
         return finalPoint;
     }
 
-    //шарик добавляется в списки со своими параметрами
+    //С€Р°СЂРёРє РґРѕР±Р°РІР»СЏРµС‚СЃСЏ РІ СЃРїРёСЃРєРё СЃРѕ СЃРІРѕРёРјРё РїР°СЂР°РјРµС‚СЂР°РјРё
     public void AddToField()
     {
         manager.GetComponent<Field>().Add(positionKey, bubbleColor, gameObject);
     }
 
-    //шарик удаляется из списков
+    //С€Р°СЂРёРє СѓРґР°Р»СЏРµС‚СЃСЏ РёР· СЃРїРёСЃРєРѕРІ
     public void RemoveFromField()
     {
         manager.GetComponent<Field>().Remove(positionKey);
     }
 
-    //если шарик содержит достаточное количество соседей одинакового цвета, то будем составлять список всех соседей
+    //РµСЃР»Рё С€Р°СЂРёРє СЃРѕРґРµСЂР¶РёС‚ РґРѕСЃС‚Р°С‚РѕС‡РЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕСЃРµРґРµР№ РѕРґРёРЅР°РєРѕРІРѕРіРѕ С†РІРµС‚Р°, С‚Рѕ Р±СѓРґРµРј СЃРѕСЃС‚Р°РІР»СЏС‚СЊ СЃРїРёСЃРѕРє РІСЃРµС… СЃРѕСЃРµРґРµР№
     public void CheckForBurst()
     {
         if (sameNeighbors.Count > 1)
@@ -160,7 +160,7 @@ public class Bubble : MonoBehaviour
         }
     }
 
-    //составление списка одинаковых соседей и вызов для них этой же функции
+    //СЃРѕСЃС‚Р°РІР»РµРЅРёРµ СЃРїРёСЃРєР° РѕРґРёРЅР°РєРѕРІС‹С… СЃРѕСЃРµРґРµР№ Рё РІС‹Р·РѕРІ РґР»СЏ РЅРёС… СЌС‚РѕР№ Р¶Рµ С„СѓРЅРєС†РёРё
     public void CheckForBurst2()
     {
         manager.GetComponent<Field>().BurstList(positionKey, bubbleColor, gameObject);
@@ -187,7 +187,7 @@ public class Bubble : MonoBehaviour
         }
     }
 
-    //подготовка шарика к падению очищением от него списков соседей
+    //РїРѕРґРіРѕС‚РѕРІРєР° С€Р°СЂРёРєР° Рє РїР°РґРµРЅРёСЋ РѕС‡РёС‰РµРЅРёРµРј РѕС‚ РЅРµРіРѕ СЃРїРёСЃРєРѕРІ СЃРѕСЃРµРґРµР№
     public void CheckForFall()
     {
         for (int i = 0; i < busyNeighbors.Count; i++)
@@ -196,7 +196,7 @@ public class Bubble : MonoBehaviour
         }
     }
 
-    //составление списка соседей падающих шариков и вызов для них этой же функции
+    //СЃРѕСЃС‚Р°РІР»РµРЅРёРµ СЃРїРёСЃРєР° СЃРѕСЃРµРґРµР№ РїР°РґР°СЋС‰РёС… С€Р°СЂРёРєРѕРІ Рё РІС‹Р·РѕРІ РґР»СЏ РЅРёС… СЌС‚РѕР№ Р¶Рµ С„СѓРЅРєС†РёРё
     public void CheckForFall2()
     {
         List<GameObject> tempNeighbors = new List<GameObject>();
@@ -216,7 +216,7 @@ public class Bubble : MonoBehaviour
         }
     }
 
-    //подготовка к удалению шарика очищением от него списков соседей
+    //РїРѕРґРіРѕС‚РѕРІРєР° Рє СѓРґР°Р»РµРЅРёСЋ С€Р°СЂРёРєР° РѕС‡РёС‰РµРЅРёРµРј РѕС‚ РЅРµРіРѕ СЃРїРёСЃРєРѕРІ СЃРѕСЃРµРґРµР№
     public void Delete()
     {
         for (int i = 0; i < busyNeighbors.Count; i++)
@@ -229,7 +229,7 @@ public class Bubble : MonoBehaviour
         }
     }
 
-    //очищение списка соседей и освобождение доступных координат
+    //РѕС‡РёС‰РµРЅРёРµ СЃРїРёСЃРєР° СЃРѕСЃРµРґРµР№ Рё РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ РґРѕСЃС‚СѓРїРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚
     public void DeleteBusyNeighbors(GameObject neighbour)
     {
         for (int i = 0; i < busyNeighbors.Count; i++)
@@ -255,7 +255,7 @@ public class Bubble : MonoBehaviour
         }
     }
 
-    //очищение списка одинаковых соседей
+    //РѕС‡РёС‰РµРЅРёРµ СЃРїРёСЃРєР° РѕРґРёРЅР°РєРѕРІС‹С… СЃРѕСЃРµРґРµР№
     public void DeleteSameNeighbors(GameObject neighbour)
     {
         for (int i = 0; i < sameNeighbors.Count; i++)
@@ -273,7 +273,7 @@ public class Bubble : MonoBehaviour
         bubblePosition = gameObject.transform;
     }
 
-    //при падении на "землю" шарики взрываются
+    //РїСЂРё РїР°РґРµРЅРёРё РЅР° "Р·РµРјР»СЋ" С€Р°СЂРёРєРё РІР·СЂС‹РІР°СЋС‚СЃСЏ
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
